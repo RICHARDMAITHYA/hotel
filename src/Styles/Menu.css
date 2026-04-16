@@ -1,0 +1,192 @@
+.menu-page {
+  background-color: #434040;
+  color: #fff;
+  padding: 4rem 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.menu-title {
+  text-align: center;
+  color: #ffd700;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.menu-intro {
+  text-align: center;
+  color: #ccc;
+  font-size: 1rem;
+  margin-bottom: 3rem;
+}
+
+.menu-section {
+  margin-bottom: 3rem;
+}
+
+.menu-heading {
+  color: #ffd700;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.menu-icon {
+  margin-right: 0.6rem;
+  color: #ffd700;
+}
+
+.menu-items {
+  border-top: 1px dotted #ffd700;
+  padding-top: 1rem;
+}
+
+.menu-item {
+  margin-bottom: 1.5rem;
+}
+
+.menu-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-price {
+  color: #ffd700;
+  font-weight: bold;
+}
+
+.menu-description {
+  color: #ccc;
+  font-size: 0.95rem;
+  margin-top: 0.3rem;
+}
+
+.menu-item:hover h3 {
+  color: #ffd700;
+  transition: color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .menu-page {
+    padding: 2rem 1rem;
+  }
+  .menu-title {
+    font-size: 2rem;
+  }
+}
+.menu-filters {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  background: none;
+  border: 1px solid #ffd700;
+  color: #ffd700;
+  padding: 0.6rem 1.2rem;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+  background-color: #ffd700;
+  color: #000;
+}
+
+.order-btn {
+  background-color: #ffd700;
+  color: #000;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.order-btn:hover {
+  background-color: #fff;
+  color: #000;
+}
+/* Modal Styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: #000;
+  border: 2px solid #ffd700;
+  padding: 2rem;
+  width: 400px;
+  color: #fff;
+  border-radius: 8px;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal h2 {
+  color: #ffd700;
+  margin-bottom: 1rem;
+}
+
+.order-form label {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.order-form input,
+.order-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ffd700;
+  background: #111;
+  color: #fff;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.confirm-btn {
+  background: #ffd700;
+  color: #000;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  background: #444;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+}
+
+.confirm-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+.cancel-btn:hover {
+  background: #666;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}

@@ -1,0 +1,23 @@
+/* Site-wide theme - Logo matching colors */
+:root {
+--primary-gold: #8B4513; /* Saddle brown */
+  --accent-gold: #D2691E; /* Chocolate faded */
+  --dark-bg: #1A1A1A;
+  --dark-card: #2D2D2D;
+  --light-text: #FFFFFF;
+  --secondary-text: #CCCCCC;
+--overlay-dark: rgba(0,0,0,0.5);
+  --overlay-light: rgba(0,0,0,0.1);
+}
+
+/* Dark mode defaults */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--dark-bg);
+  color: var(--light-text);
+}
