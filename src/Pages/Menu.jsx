@@ -7,14 +7,39 @@ const Menu = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  const [orderForm, setOrderForm] = useState({ name: '', phone: '', notes: '' });
+  const [orderMessage, setOrderMessage] = useState('');
+
   const handleOrderClick = (item) => {
     setSelectedItem(item);
     setShowModal(true);
+    setOrderMessage('');
+    setOrderForm({ name: '', phone: '', notes: '' });
   };
 
   const closeModal = () => {
     setShowModal(false);
     setSelectedItem(null);
+    setOrderMessage('');
+  };
+
+  const handleOrderChange = (e) => {
+    setOrderForm({
+      ...orderForm,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleOrderSubmit = (e) => {
+    e.preventDefault();
+    if (!orderForm.name.trim() || !orderForm.phone.trim()) {
+      setOrderMessage('Please fill in your name and phone number.');
+      return;
+    }
+    setOrderMessage(`Order placed for ${selectedItem.name}! We will contact you at ${orderForm.phone}.`);
+    setTimeout(() => {
+      closeModal();
+    }, 2000);
   };
 
   const menuSections = [
@@ -153,18 +178,23 @@ const Menu = () => {
         <div className="modal-overlay">
           <div className="modal">
             <h2>Order {selectedItem.name}</h2>
-            <form className="order-form">
+            {orderMessage && (
+              <div className={`message ${orderMessage.includes('placed') ? 'success' : 'error'}`} style={{ marginBottom: '1rem', padding: '0.75rem', borderRadius: '6px', background: orderMessage.includes('placed') ? '#2ecc71' : '#e74c3c', color: '#fff' }}>
+                {orderMessage}
+              </div>
+            )}
+            <form className="order-form" onSubmit={handleOrderSubmit}>
               <label>
                 Name:
-                <input type="text" placeholder="Your full name" required />
+                <input type="text" name="name" value={orderForm.name} onChange={handleOrderChange} placeholder="Your full name" required />
               </label>
               <label>
                 Phone:
-                <input type="tel" placeholder="Your phone number" required />
+                <input type="tel" name="phone" value={orderForm.phone} onChange={handleOrderChange} placeholder="Your phone number" required />
               </label>
               <label>
                 Notes:
-                <textarea placeholder="Any special requests?" />
+                <textarea name="notes" value={orderForm.notes} onChange={handleOrderChange} placeholder="Any special requests?" />
               </label>
               <div className="modal-actions">
                 <button type="submit" className="confirm-btn">Confirm Order</button>
