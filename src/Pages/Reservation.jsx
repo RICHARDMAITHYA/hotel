@@ -1,146 +1,137 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import "../Styles/Reservation.css";
 
-function ReservationModal({ isOpen, onClose }) {
+function Reservation() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     date: '',
     time: '',
-    guests: 2
+    guests: ''
   });
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState(''); // 'success' or 'error'
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log('Reservation:', formData);
-    onClose();
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
-  if (!isOpen) return null;
-
-  return (
-    <div className="reservation-modal">
-      <div className="modal-content">
-        <h2>Reserve a Table</h2>
-        <form className="reservation-form" onSubmit={handleSubmit}>
-          <label>
-            Full Name:
-            <input 
-              type="text" 
-              value={formData.name}
-              onChange={(e) => setFormData({...formData, name: e.target.value})}
-              placeholder="Your full name" 
-              required 
-            />
-          </label>
-          <label>
-            Email:
-            <input 
-              type="email" 
-              value={formData.email}
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
-              placeholder="your@email.com" 
-              required 
-            />
-          </label>
-          <label>
-            Date:
-            <input 
-              type="date" 
-              value={formData.date}
-              onChange={(e) => setFormData({...formData, date: e.target.value})}
-              required 
-            />
-          </label>
-          <label>
-            Time:
-            <input 
-              type="time" 
-              value={formData.time}
-              onChange={(e) => setFormData({...formData, time: e.target.value})}
-              required 
-            />
-          </label>
-          <label>
-            Number of Guests:
-            <input 
-              type="number" 
-              min="1" 
-              max="20" 
-              value={formData.guests}
-              onChange={(e) => setFormData({...formData, guests: e.target.value})}
-              required 
-            />
-          </label>
-          <button type="submit" className="submit-btn">
-            Confirm Reservation
-          </button>
-        </form>
-        <button 
-          className="close-btn" 
-          type="button"
-          onClick={onClose}
-        >
-          Close
-        </button>
-      </div>
-    </div>
-  );
-}
-
-export default function Reservation() {
-  const [showModal, setShowModal] = useState(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage('');
+    
+    try {
+      const response = await axios.post('http://localhost/hotel/reserve.php', JSON.stringify(formData), {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (response.data.success) {
+        setMessage(response.data.message);
+        setMessageType('success');
+        setFormData({ name: '', email: '', date: '', time: '', guests: '' });
+      } else {
+        setMessage(response.data.message || 'Submission failed');
+        setMessageType('error');
+      }
+    } catch (error) {
+      console.log(error);
+      setMessage(error.response?.data?.message || 'Network error. Please try again.');
+      setMessageType('error');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="reservation-page">
-      {/* Hero Section */}
-      <section className="reservation-hero">
-        <h1>Book Your Table</h1>
-        <p>Reserve your spot for an unforgettable dining experience at our award-winning restaurant</p>
-        <button 
-          onClick={() => setShowModal(true)} 
-          className="hero-reserve-btn"
-        >
-          Reserve Now
-        </button>
-      </section>
+      <div className="form-container">
+        <h2>Make a Reservation</h2>
+        {message && (
+          <div className={`message ${messageType}`}>
+            {message}
+          </div>
+        )}
+        <form onSubmit={handleSubmit}>
+          <div className="form-row">
+            <div>
+              <label htmlFor="name">Name</label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Enter your name" 
+                required 
+              />
+            </div>
+            <div>
+              <label htmlFor="email">Email</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter your email" 
+                required 
+              />
+            </div>
+          </div>
 
-      {/* Content Section */}
-      <div className="reservation-content">
-        <h2>Why Book With Us?</h2>
-        <div className="reservation-info">
-          <div className="info-card">
-            <div className="info-icon">📅</div>
-            <h3>Instant Confirmation</h3>
-            <p>Get immediate confirmation for your reservation. No waiting, no phone calls.</p>
+          <div className="form-row">
+            <div>
+              <label htmlFor="date">Date</label>
+              <input 
+                type="date" 
+                id="date" 
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                required 
+              />
+            </div>
+            <div>
+              <label htmlFor="time">Time</label>
+              <input 
+                type="time" 
+                id="time" 
+                name="time"
+                value={formData.time}
+                onChange={handleChange}
+                required 
+              />
+            </div>
           </div>
-          <div className="info-card">
-            <div className="info-icon">👥</div>
-            <h3>Up to 20 Guests</h3>
-            <p>Perfect for intimate dinners or private celebrations with friends and family.</p>
-          </div>
-          <div className="info-card">
-            <div className="info-icon">⚡</div>
-            <h3>24/7 Availability</h3>
-            <p>Book anytime, day or night. We're ready to serve you whenever you're hungry.</p>
-          </div>
-        </div>
 
-        <div className="cta-section">
-          <h2>Ready to dine with us?</h2>
-          <button 
-            onClick={() => setShowModal(true)} 
-            className="page-reserve-btn"
-          >
-            Make Reservation
+          <label htmlFor="guests">Number of Guests</label>
+          <input 
+            type="number" 
+            id="guests" 
+            name="guests"
+            value={formData.guests}
+            onChange={handleChange}
+            min="1" 
+            placeholder="Number of guests" 
+            required 
+          />
+
+          <button type="submit" disabled={loading}>
+            {loading ? 'Reserving...' : 'Reserve Now'}
           </button>
-        </div>
+        </form>
       </div>
-
-      {/* Modal */}
-      <ReservationModal isOpen={showModal} onClose={() => setShowModal(false)} />
     </div>
   );
 }
+
+export default Reservation;
 

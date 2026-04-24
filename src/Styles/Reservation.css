@@ -5,64 +5,171 @@
 }
 
 .reservation-page {
-  min-height: 100vh;
-  color: rgb(126, 121, 121);
-  font-family: 'Segoe UI', sans-serif;
-  overflow-x: hidden;
-}
-
-.reservation-hero {
-  position: relative;
-  height: 70vh;
-  background: linear-gradient(135deg, rgba(131, 128, 128, 0.6), rgba(0,0,0,0.2)), url('../assets/tt.jpg');
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0 5%;
-}
-
-.reservation-hero h1 {
-  font-size: clamp(3.5rem, 8vw, 6.5rem);
-  font-weight: 900;
-  text-shadow: 3px 3px 10px rgba(0,0,0,0.8);
-  background: linear-gradient(45deg, #ffd700, #ffed4e);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 1.5rem;
-  letter-spacing: 0.05em;
-  animation: shimmer 3s ease-in-out infinite;
-}
-
-.reservation-hero p {
-  font-size: clamp(1.3rem, 3vw, 1.8rem);
-  opacity: 0.95;
-  max-width: 700px;
-  margin-bottom: 3rem;
-}
-
-.hero-reserve-btn {
-  display: inline-block;
-  padding: 16px 40px;
-  background: linear-gradient(45deg, #ffd700, #ffed4e);
-  color: #111;
-  font-weight: 800;
-  font-size: 1.3rem;
-  text-transform: uppercase;
-  border-radius: 50px;
-  text-decoration: none;
-  letter-spacing: 1px;
-  transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
-  box-shadow: 0 12px 40px rgba(255,215,0,0.4);
+  height: calc(100vh - 120px);
+  background-color: #0a0a0a;
   position: relative;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 2rem;
 }
 
-.hero-reserve-btn::before {
+.reservation-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(3, 3, 3, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(10, 10, 10, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(28, 28, 28, 0.2) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.form-container {
+  background: rgba(15, 15, 35, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  padding: 2.5rem 2rem;
+  border-radius: 25px;
+  box-shadow: 
+    0 25px 50px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+  max-width: 550px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 1.8rem;
+  font-size: 2.2rem;
+  background: linear-gradient(45deg, #ffd700, #ffed4e, #ffb347);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.form-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #ffd700, transparent);
+  border-radius: 2px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  color: #e0e0e0;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  background: rgba(255,255,255,0.08);
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: 15px;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.form-container input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+.form-container input:focus {
+  outline: none;
+  border-color: #ffd700;
+  box-shadow: 
+    0 0 0 4px rgba(255,215,0,0.1),
+    0 10px 30px rgba(255,215,0,0.2);
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-2px);
+}
+
+.form-container button {
+  width: 100%;
+  padding: 1.3rem;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffb347 100%);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 15px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(255,215,0,0.3);
+}
+
+.form-container button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.message {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
+  font-weight: 500;
+  text-align: center;
+  animation: slideUp 0.5s ease-out;
+}
+
+.message.success {
+  background: rgba(34, 197, 94, 0.2);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  color: #22c55e;
+}
+
+.message.error {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #ef4444;
+}
+
+.form-container button::before {
   content: '';
   position: absolute;
   top: 0;
@@ -73,258 +180,33 @@
   transition: left 0.6s;
 }
 
-.hero-reserve-btn:hover::before {
+.form-container button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(255,215,0,0.4);
+}
+
+.form-container button:hover::before {
   left: 100%;
 }
 
-.hero-reserve-btn:hover {
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 20px 60px rgba(255,215,0,0.6);
-}
-
-.reservation-content {
-  padding: 6rem 5%;
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.reservation-content h2 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  color: #161614;
-  margin-bottom: 1rem;
-  font-weight: 800;
-}
-
-.reservation-info {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 3rem;
-  margin-bottom: 4rem;
-}
-
-.info-card {
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(15px);
-  border-radius: 20px;
-  padding: 2.5rem;
-  border: 1px solid rgba(255,255,255,0.1);
-  transition: all 0.3s ease;
-}
-
-.info-card:hover {
-  transform: translateY(-10px);
-  background: rgba(255,255,255,0.08);
-  box-shadow: 0 25px 60px rgba(0,0,0,0.4);
-}
-
-.info-icon {
-  font-size: 3rem;
-  color: #ffd700;
-  margin-bottom: 1rem;
-}
-
-.info-card h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: rgb(68, 63, 63);
-}
-
-.info-card p {
-  color: rgba(22, 22, 22, 0.8);
-  line-height: 1.7;
-}
-
-.cta-section {
-  background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(255,237,78,0.1));
-  padding: 4rem 5%;
-  border-radius: 25px;
-  margin: 4rem 0;
-  border: 1px solid rgba(212,175,55,0.2);
-}
-
-.cta-section h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
-  color: #ffd700;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.page-reserve-btn {
-  display: inline-block;
-  padding: 16px 40px;
-  background: linear-gradient(45deg, #ffd700, #ffed4e);
-  color: #111;
-  font-weight: 700;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  box-shadow: 0 10px 30px rgba(255,215,0,0.4);
-}
-
-.page-reserve-btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 50px rgba(255,215,0,0.6);
-}
-
-/* Modal Styles - Provided */
-.reservation-modal {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  backdrop-filter: blur(5px);
-}
-
-.modal-content {
-  background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
-  padding: 3rem;
-  border-radius: 20px;
-  max-width: 550px;
-  width: 90%;
-  color: white;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.7);
-  border: 1px solid rgba(255,255,255,0.1);
-  animation: modalSlideIn 0.4s cubic-bezier(0.4,0,0.2,1);
-  position: relative;
-}
-
-.modal-content h2 {
-  font-size: 2.2rem;
-  color: #ffd700;
-  margin-bottom: 2rem;
-  text-align: center;
-  font-weight: 800;
-  letter-spacing: 1px;
-}
-
-.reservation-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.reservation-form label {
-  display: flex;
-  flex-direction: column;
-  font-size: 1rem;
-  color: #ffd700;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-}
-
-.reservation-form input {
-  padding: 14px 18px;
-  border-radius: 12px;
-  border: 2px solid rgba(212,175,55,0.3);
-  background: rgba(255,255,255,0.05);
-  color: white;
-  font-size: 1rem;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-}
-
-.reservation-form input:focus {
-  outline: none;
-  border-color: #ffd700;
-  box-shadow: 0 0 0 3px rgba(255,215,0,0.2);
-  background: rgba(255,255,255,0.08);
-}
-
-.submit-btn {
-  background: linear-gradient(45deg, #ffd700, #ffed4e);
-  color: #111;
-  font-weight: 800;
-  font-size: 1.2rem;
-  padding: 16px;
-  border-radius: 30px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 1rem;
-  box-shadow: 0 10px 30px rgba(255,215,0,0.4);
-}
-
-.submit-btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 50px rgba(255,215,0,0.6);
-  background: linear-gradient(45deg, #ffed4e, #ffd700);
-}
-
-.close-btn {
-  margin-top: 1.5rem;
-  background: transparent;
-  color: #ffd700;
-  border: 2px solid #ffd700;
-  padding: 12px 24px;
-  border-radius: 30px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  width: 100%;
-}
-
-.close-btn:hover {
-  background: #ffd700;
-  color: #111;
-  transform: translateY(-2px);
-}
-
-/* Trigger Buttons */
-.reserve-btn, .hero-reserve-btn, .page-reserve-btn {
-  display: inline-block;
-  padding: 14px 32px;
-  background: linear-gradient(45deg, #ffd700, #ffed4e);
-  color: #111;
-  font-weight: 700;
-  text-transform: uppercase;
-  border-radius: 50px;
-  text-decoration: none;
-  letter-spacing: 1px;
-  transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
-  box-shadow: 0 8px 25px rgba(255,215,0,0.4);
-  position: relative;
-  overflow: hidden;
-}
-
-.reserve-btn:hover, .hero-reserve-btn:hover, .page-reserve-btn:hover {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 20px 50px rgba(255,215,0,0.6);
-}
-
-@keyframes shimmer {
-  0%, 100% { background-position: 200% 0; }
-  50% { background-position: -200% 0; }
-}
-
-@keyframes modalSlideIn {
-  from { 
-    opacity: 0; 
-    transform: scale(0.8) translateY(-50px); 
-  }
-  to { 
-    opacity: 1; 
-    transform: scale(1) translateY(0); 
-  }
-}
-
 @media (max-width: 768px) {
-  .modal-content {
-    padding: 2rem 1.5rem;
-    margin: 1rem;
+  .reservation-page {
+    padding: 1rem;
+    height: calc(100vh - 100px);
   }
-
-  .reservation-hero h1 {
-    font-size: 2.8rem;
+  
+  .form-container {
+    padding: 1.8rem;
+    margin: 0.5rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .form-container h2 {
+    font-size: 1.8rem;
   }
 }
 
